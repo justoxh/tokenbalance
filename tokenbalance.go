@@ -86,6 +86,7 @@ func (tb *TokenBalance) query() error {
 	block, err := Geth.BlockByNumber(tb.ctx, nil)
 	if err != nil {
 		log(fmt.Sprintf("Failed to get current block number: %v\n", err), false)
+		return err
 	}
 	tb.Block = block.Number().Int64()
 

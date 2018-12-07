@@ -147,7 +147,9 @@ func (tb *TokenBalance) ToJSON() string {
 }
 
 func bigIntString(balance *big.Int, decimals int64) string {
+
 	amount := bigIntFloat(balance, decimals)
+
 	deci := fmt.Sprintf("%%0.%vf", decimals)
 	return clean(fmt.Sprintf(deci, amount))
 }
@@ -156,9 +158,10 @@ func bigIntFloat(balance *big.Int, decimals int64) *big.Float {
 	if balance.Sign() == 0 {
 		return big.NewFloat(0)
 	}
-	bal := big.NewFloat(0)
-	bal.SetInt(balance)
+	bal := new(big.Float)
+	bal.SetString(balance.String())
 	pow := bigPow(10, decimals)
+
 	p := big.NewFloat(0)
 	p.SetInt(pow)
 	bal.Quo(bal, p)
